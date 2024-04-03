@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from './home.module.css';
+import styles from './register.module.css';
 import img from '../../../assets/imagens/micro.png'
-import imgdoc from '../../../assets/imagens/undraw_medicine_b-1-ol.svg'
-
-import { useNavigate } from "react-router-dom";
+import imgdoc from '../../../assets/imagens/undraw_two_factor_authentication_namy.svg'
 
 import { auth } from "../../firebaseConnection";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
-export function Home(){
+export function Register(){
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+   
 
     const navigate = useNavigate();
 
@@ -22,31 +22,28 @@ export function Home(){
     };
     */
 
-    async function handleLogin(){
-        
+    async function handleRegister(){
+       
         if(user !== '' && password !== ''){
-
-            await signInWithEmailAndPassword(auth, user, password)
-            .then(() => {
-                navigate('/admin', { replace: true })
+            await createUserWithEmailAndPassword(auth, user, password)
+            .then(() =>{
+                navigate('/', { replace: true })
             })
-            .catch(() => {
-                console.log('error ao fazer o login')
-            })
-            
         }else{
             alert('Prencha todos os campos!')
         }
     }
 
+    
+
     return(
-        
         <div className={styles.container}>
 
-        
-            <form className={styles.formContainer} onSubmit={handleLogin}>
+            <form className={styles.formContainer} onSubmit={handleRegister} >
             <img src={img} alt="Imagem" className={styles.image} />
-                <h1>Envio de Exames</h1>
+                <h1>Cadastrar</h1>
+
+
                 <input
                     type="text"
                     value={user}
@@ -57,19 +54,19 @@ export function Home(){
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="*********"
+                    placeholder="Senha"
                 />
-                
-                <button className={styles.button} type="submit">Entrar</button> 
-                
 
-                
-                <Link to='/register'>
-                Não possui uma conta ? Cadastre-se
+               
+                <button className={styles.button} type="submit">Criar</button> 
+
+
+                <Link to='/'>
+                Ja possui ?
                 </Link>
 
                 </form>
-            
+
 
             <div className={styles.imagedoc}>
             <img src={imgdoc} alt="Imagem" className={styles.docimage} />
