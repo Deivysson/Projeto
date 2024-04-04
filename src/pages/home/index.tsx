@@ -10,7 +10,7 @@ import { auth } from "../../firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function Home(){
-    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
@@ -26,14 +26,14 @@ export function Home(){
         e.preventDefault();
        
         
-        if(email === '' || password === ''){
+        if(name === '' || password === ''){
             alert('Preencha todos os campos!')
             return;
             }
 
-            await signInWithEmailAndPassword(auth, email, password)
+            await signInWithEmailAndPassword(auth, name, password)
             .then(() => {
-                navigate('/admin', {replace: true})
+                navigate('/Screen', {replace: true})
             })
             .catch((error) => {
                 console.log(error);
@@ -49,11 +49,11 @@ export function Home(){
         
             <form className={styles.formContainer} onSubmit={handleLogin}>
             <img src={img} alt="Imagem" className={styles.image} />
-                <h1>Envio de Exames</h1>
+                <h1>Login</h1>
                 <input
                     type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Usuário"
                 />
                 <input
@@ -68,7 +68,7 @@ export function Home(){
 
                 
                 <Link to='/register'>
-                Não possui uma conta ? Cadastre-se
+                Adm
                 </Link>
 
                 </form>

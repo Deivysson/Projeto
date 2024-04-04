@@ -63,7 +63,7 @@ export function Register(){
 
 
                 <Link to='/'>
-                Ja possui ?
+                home
                 </Link>
 
                 </form>
