@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from './register.module.css';
 import img from '../../../assets/imagens/micro.png'
@@ -9,7 +9,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 export function Register(){
-    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
    
 
@@ -22,12 +22,13 @@ export function Register(){
     };
     */
 
-    async function handleRegister(){
+    async function handleRegister(e: FormEvent){
+        e.preventDefault();
        
-        if(user !== '' && password !== ''){
-            await createUserWithEmailAndPassword(auth, user, password)
+        if(email !== '' || password !== ''){
+            await createUserWithEmailAndPassword(auth, email, password)
             .then(() =>{
-                navigate('/', { replace: true })
+                navigate('/')
             })
         }else{
             alert('Prencha todos os campos!')
@@ -46,8 +47,8 @@ export function Register(){
 
                 <input
                     type="text"
-                    value={user}
-                    onChange={(e) => setUser(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Usuário"
                 />
                 <input

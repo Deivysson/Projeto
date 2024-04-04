@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from './home.module.css';
 import img from '../../../assets/imagens/micro.png'
@@ -10,7 +10,7 @@ import { auth } from "../../firebaseConnection";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export function Home(){
-    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const navigate = useNavigate();
@@ -22,22 +22,25 @@ export function Home(){
     };
     */
 
-    async function handleLogin(){
+    async function handleLogin(e: FormEvent){
+        e.preventDefault();
+       
         
-        if(user !== '' && password !== ''){
+        if(email === '' || password === ''){
+            alert('Preencha todos os campos!')
+            return;
+            }
 
-            await signInWithEmailAndPassword(auth, user, password)
+            await signInWithEmailAndPassword(auth, email, password)
             .then(() => {
-                navigate('/admin', { replace: true })
+                navigate('/admin', {replace: true})
             })
-            .catch(() => {
-                console.log('error ao fazer o login')
+            .catch((error) => {
+                console.log(error);
             })
             
-        }else{
-            alert('Prencha todos os campos!')
         }
-    }
+    
 
     return(
         
@@ -49,8 +52,8 @@ export function Home(){
                 <h1>Envio de Exames</h1>
                 <input
                     type="text"
-                    value={user}
-                    onChange={(e) => setUser(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Usuário"
                 />
                 <input
