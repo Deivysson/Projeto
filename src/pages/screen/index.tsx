@@ -1,25 +1,24 @@
+// screen.tsx
+
 import { useState } from "react";
+import axios from 'axios'; // Importe o axios para fazer requisições HTTP
 import styles from './screen.module.css';
 import img from '../../../assets/imagens/micro.png'
 
 export function Screen() {
   const [name, setName] = useState('');
-  const [searchedName, setSearchedName] = useState('');
+  const [searchedNames, setSearchedNames] = useState<string[]>([]);
 
   const handleSearch = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/search?cpf=${name}`);
-      const data = await response.json();
-      
-      if (response.ok) {
-        setSearchedName(data.name);
-      } else {
-        console.error('Erro ao buscar o nome:', data.error);
-        setSearchedName('');
-      }
+      console.log('Pesquisando nome:', name);
+      const response = await axios.post('/searchNames', { name });
+      const names = response.data;
+      console.log('Nomes encontrados:', names);
+      setSearchedNames(names);
     } catch (error) {
       console.error('Erro ao buscar o nome:', error);
-      setSearchedName('');
+      setSearchedNames([]);
     }
   };
 
@@ -35,7 +34,16 @@ export function Screen() {
           placeholder="CPF do paciente"
         />
         <button className={styles.button} onClick={handleSearch}>Pesquisar</button> 
-        {searchedName && <p>Nome: {searchedName}</p>}
+        {searchedNames.length > 0 && (
+          <div>
+            <p>Nomes encontrados:</p>
+            <ul>
+              {searchedNames.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
