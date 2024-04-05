@@ -1,9 +1,8 @@
 // screen.tsx
 
 import { useState } from "react";
-import axios from 'axios'; // Importe o axios para fazer requisições HTTP
 import styles from './screen.module.css';
-import img from '../../../assets/imagens/micro.png'
+import img from '../../../assets/imagens/micro.png';
 
 export function Screen() {
   const [name, setName] = useState('');
@@ -12,8 +11,14 @@ export function Screen() {
   const handleSearch = async () => {
     try {
       console.log('Pesquisando nome:', name);
-      const response = await axios.post('/searchNames', { name });
-      const names = response.data;
+      const response = await fetch('/screen', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name }),
+      });
+      const names = await response.json();
       console.log('Nomes encontrados:', names);
       setSearchedNames(names);
     } catch (error) {
@@ -31,7 +36,7 @@ export function Screen() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="CPF do paciente"
+          placeholder="Nome do paciente"
         />
         <button className={styles.button} onClick={handleSearch}>Pesquisar</button> 
         {searchedNames.length > 0 && (

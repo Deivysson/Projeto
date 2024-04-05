@@ -1,4 +1,3 @@
-// db.ts
 
 import { Request, Response } from 'express';
 import { Pool } from 'pg';
@@ -18,7 +17,7 @@ export async function searchNames(req: Request, res: Response) {
 
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT name FROM arq_paciente WHERE name = $1', [name]);
+    const result = await client.query('SELECT name FROM nom_paciente WHERE name = $1', [name]);
     const names = result.rows.map((row: any) => row.name);
     client.release();
     res.status(200).json(names);

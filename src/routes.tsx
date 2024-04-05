@@ -6,6 +6,7 @@ import { Register } from "./pages/register";
 import { Screen } from "./pages/screen";
 
 
+
 import { Private } from "./routes/Private";
 
 function RoutesApp(){
@@ -15,6 +16,7 @@ function RoutesApp(){
         <Route  path="/register" element={<Private> <Register /> </Private> } />
         <Route  path="/sobre" element={ <Private><Sobre /></Private> } />
         <Route path="/screen" element={  <Private><Screen /></Private> } />
+       
     </Routes>  
     )
        
