@@ -15,12 +15,7 @@ export function Home(){
 
     const navigate = useNavigate();
 
-    /*
-    const handleSearch = () => {
-        // Implemente a lógica de pesquisa de CPF aqui
-        console.log('CPF pesquisado:', cpf);
-    };
-    */
+  
 
     async function handleLogin(e: FormEvent){
         e.preventDefault();

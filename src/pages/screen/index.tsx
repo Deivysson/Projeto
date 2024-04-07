@@ -1,4 +1,4 @@
-// screen.tsx
+
 
 import { useState } from "react";
 import styles from './screen.module.css';
@@ -11,7 +11,7 @@ export function Screen() {
   const handleSearch = async () => {
     try {
       console.log('Pesquisando nome:', name);
-      const response = await fetch('/screen', {
+      const response = await fetch('/searchNames', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
