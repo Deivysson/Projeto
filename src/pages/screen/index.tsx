@@ -1,33 +1,20 @@
-
-
+// Screen.js
 import { useState } from "react";
 import styles from './screen.module.css';
 import img from '../../../assets/imagens/micro.png';
 
 export function Screen() {
-  const [name, setName] = useState('');
-  const [searchedNames, setSearchedNames] = useState<string[]>([]);
+ const [name, setName] = useState('');
+ const [results, setResults] = useState([]);
 
-  const handleSearch = async () => {
-    try {
-      console.log('Pesquisando nome:', name);
-      const response = await fetch('/searchNames', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name }),
-      });
-      const names = await response.json();
-      console.log('Nomes encontrados:', names);
-      setSearchedNames(names);
-    } catch (error) {
-      console.error('Erro ao buscar o nome:', error);
-      setSearchedNames([]);
-    }
-  };
+ async function handleSearch() {
+    const response = await fetch(`http://localhost:3000/pacientes/search?name=${name}`);
+    const data = await response.json();
+    console.log(data);
+    setResults(data);
+ }
 
-  return(
+ return(
     <div className={styles.container}>
       <div className={styles.formContainer}>
         <img src={img} alt="Imagem" className={styles.image} />
@@ -38,18 +25,14 @@ export function Screen() {
           onChange={(e) => setName(e.target.value)}
           placeholder="Nome do paciente"
         />
-        <button className={styles.button} onClick={handleSearch}>Pesquisar</button> 
-        {searchedNames.length > 0 && (
-          <div>
-            <p>Nomes encontrados:</p>
-            <ul>
-              {searchedNames.map((name, index) => (
-                <li key={index}>{name}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <button className={styles.button} onClick={handleSearch}>Pesquisar</button>
+        <ul>
+          {results.map((result, index) => (
+            <li key={index}>{result['nom_paciente']}</li>
+        
+          ))}
+        </ul>
       </div>
     </div>
-  );
+ );
 }

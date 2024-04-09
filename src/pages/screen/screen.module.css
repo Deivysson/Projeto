@@ -53,5 +53,16 @@
       border-radius: 5px;
       cursor: pointer;
   }
+
+  ul {
+    margin-top: 20px;
+    color: white;
+    
+  }
+
+  li {
+   cursor: pointer;
+    margin-top: 15px;
+  }
   
   
