@@ -4,7 +4,7 @@ import { Home } from "./pages/home";
 import { Sobre } from "./pages/sobre";
 import { Register } from "./pages/register";
 import { Screen } from "./pages/screen";
-
+import { Form } from './pages/form'
 
 
 import { Private } from "./routes/Private";
@@ -16,6 +16,7 @@ function RoutesApp(){
         <Route  path="/register" element={<Private> <Register /> </Private> } />
         <Route  path="/sobre" element={ <Private><Sobre /></Private> } />
         <Route path="/screen" element={  <Private><Screen /></Private> } />
+        <Route path="/form" element={ <Private><Form /></Private> } />
        
     </Routes>  
     )
