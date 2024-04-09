@@ -6,7 +6,7 @@ import { Pool } from 'pg';
 const pool = new Pool({
   user: 'postgres',
   host: '172.16.170.120',
-  database: 'postgres',
+  database: 'ame',
   password: 'juizladrao_1994',
   port: 5432,
 });
@@ -17,8 +17,8 @@ export async function searchNames(req: Request, res: Response) {
 
   try {
     const client = await pool.connect();
-    const result = await client.query('SELECT name FROM nom_paciente WHERE name = $1', [name]);
-    const names = result.rows.map((row: any) => row.name);
+    const result = await client.query('SELECT nom_paciente FROM arq_paciente WHERE nom_paciente LIKE upper ($1)', [name]);
+    const names = result.rows.map((row: any) => row.nom_paciente);
     client.release();
     res.status(200).json(names);
   } catch (error) {
