@@ -26,7 +26,7 @@ export function Form() {
  };
 
  return (
-    <div className={styles.container}>
+    <form className={styles.container}>
       <h1>Formulário de Exame</h1>
       <input type="text" value={nomPaciente} readOnly className={styles.input} /> {/* Campo de input com o nome do paciente */}
       <label>
@@ -48,7 +48,7 @@ export function Form() {
         <input type="file" accept="application/pdf" onChange={handleFileChange} className={styles.input} />
       </label>
       <button onClick={handleSubmit} className={styles.button}>Enviar</button>
-    </div>
+    </form>
  );
 }
 
