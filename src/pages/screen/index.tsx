@@ -34,7 +34,8 @@ export function Screen() {
         <button className={styles.button} onClick={handleSearch}>Pesquisar</button>
         <ul>
           {results.map((result, index) => (
-            <li key={index} onClick={() => handleNameClick(result['nom_paciente'])} >{result['nom_paciente']}</li>
+            <li key={index} onClick={() => handleNameClick(result['nom_paciente'])}>
+              {result['nom_paciente']} </li>
         
           ))}
         </ul>

@@ -1,11 +1,13 @@
 
 import  { FormEvent, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './form.module.css'
 
 export function Form() {
  const location = useLocation();
  const { nomPaciente } = location.state;
+const navigate = useNavigate();
+
 
  // Estados para gerenciar os campos de input
  const [dataExame, setDataExame] = useState('');
@@ -25,8 +27,14 @@ export function Form() {
     console.log({ nomExame, dataExame, medicoSolicitante, arquivo });
  };
 
+const handleRedirectToGerar = () => {
+  navigate('/gerar');
+}
+
+
+
  return (
-    <form className={styles.container}>
+    <div className={styles.container}>
       <h1>Formulário de Exame</h1>
       <input type="text" value={nomPaciente} readOnly className={styles.input} /> {/* Campo de input com o nome do paciente */}
       <label>
@@ -48,8 +56,13 @@ export function Form() {
         <input type="file" accept="application/pdf" onChange={handleFileChange} className={styles.input} />
       </label>
       <button onClick={handleSubmit} className={styles.button}>Enviar</button>
-    </form>
+      <button onClick={handleRedirectToGerar} className={styles.button}>Gerar senha</button>
+      
+
+    </div>
  );
+
+ 
 }
 
 export default Form;
