@@ -5,29 +5,51 @@
     margin: 0 auto;
     padding: 20px;
     background-color: black;
-   }
-   
-   .input {
+}
+
+.input {
     display: block;
     margin-bottom: 10px;
     padding: 5px;
     font-size: 16px;
-   }
-   
-   .button {
+    color: black; /* Garante que o texto dentro dos inputs seja branco */
+}
+
+.button {
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-   }
-   
-   .button:hover {
-    background-color: #0056b3;
-   }
+}
 
-   label {
-    color: white
-;   }
-   
+.button:hover {
+    background-color: #0056b3;
+}
+
+label {
+    color: white;
+}
+
+/* Estilização da lista suspensa */
+.selectList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+    background-color: #333; /* Cor de fundo escura para melhorar a visibilidade */
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+}
+
+.selectList li {
+    padding: 10px;
+    cursor: pointer;
+    color: white; /* Cor do texto branca para melhorar a visibilidade */
+}
+
+.selectList li:hover {
+    background-color: #444; /* Cor de fundo mais escura para o item sob o cursor */
+}
