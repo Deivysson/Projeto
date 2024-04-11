@@ -15,6 +15,14 @@
     color: black; /* Garante que o texto dentro dos inputs seja branco */
 }
 
+.inputFile{
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    font-size: 16px;
+    color: white; 
+}
+
 .button {
     background-color: #007bff;
     color: white;

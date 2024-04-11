@@ -22,7 +22,7 @@ const [showExameList, setShowExameList] = useState(false);
  const [arquivo, setArquivo] = useState(null);
 
  // Função para lidar com a mudança no campo de arquivo
- const handleFileChange = (e:FormEvent) => {
+ const handleFileChange = (e:any) => {
     setArquivo(e.target.files[0]);
  };
 
@@ -110,7 +110,7 @@ const handleMedicoSelect = (medico:any) => {
 
       <label>
         Selecionar Arquivo:
-        <input type="file" accept="application/pdf" onChange={handleFileChange} className={styles.input} />
+        <input type="file" accept="application/pdf" onChange={handleFileChange} className={styles.inputFile} />
       </label>
       <button onClick={handleSubmit} className={styles.button}>Enviar</button>
       <button onClick={handleRedirectToGerar} className={styles.button}>Gerar senha</button>
