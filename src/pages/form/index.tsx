@@ -5,7 +5,7 @@ import styles from './form.module.css'
 
 export function Form() {
  const location = useLocation();
- const { nomPaciente } = location.state;
+ const { paciente } = location.state;
 const navigate = useNavigate();
 
 const exames = ['Exame A', 'Exame B', 'Exame C'];
@@ -23,6 +23,7 @@ const [showExameList, setShowExameList] = useState(false);
 
  // Função para lidar com a mudança no campo de arquivo
  const handleFileChange = (e:any) => {
+
     setArquivo(e.target.files[0]);
  };
 
@@ -54,7 +55,9 @@ const handleMedicoSelect = (medico:any) => {
  return (
     <div className={styles.container}>
       <h1>Formulário de Exame</h1>
-      <input type="text" value={nomPaciente} readOnly className={styles.input} /> {/* Campo de input com o nome do paciente */}
+      <input type="text" value={paciente.nom_paciente} readOnly className={styles.input} />
+      <input type="text" value={paciente.num_cpf} readOnly className={styles.input} />
+      <input type="text" value={paciente.cod_paciente} readOnly className={styles.input} /> {/* Campo de input com o nome do paciente */}
       
       <label>
 

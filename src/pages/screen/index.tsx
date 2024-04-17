@@ -7,6 +7,7 @@ import img from '../../../assets/imagens/micro.png';
 export function Screen() {
  const [name, setName] = useState('');
  const [results, setResults] = useState([]);
+ 
  const navigate = useNavigate();
 
  async function handleSearch() {
@@ -16,8 +17,8 @@ export function Screen() {
     setResults(data);
  }
 
- const handleNameClick = (nomPaciente:any) => {
-  navigate('/form', { state: {nomPaciente} });
+ const handleNameClick = (paciente:any) => {
+  navigate('/form', { state: {paciente} });
  }
 
  return(
@@ -34,8 +35,9 @@ export function Screen() {
         <button className={styles.button} onClick={handleSearch}>Pesquisar</button>
         <ul>
           {results.map((result, index) => (
-            <li key={index} onClick={() => handleNameClick(result['nom_paciente'])}>
-              {result['nom_paciente']} </li>
+            console.log('result', result),
+            <li key={index} onClick={() => handleNameClick(result)}>
+              {result['nom_paciente']}  {result['num_cpf']} </li>
         
           ))}
         </ul>
