@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { Pool } from 'pg';
 
-// Configuração da conexão com o banco de dados
+
 const pool = new Pool({
   user: 'postgres',
   host: '172.16.170.120',
@@ -11,7 +11,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Função para pesquisar nomes no banco de dados
+
 export async function searchNames(req: Request, res: Response) {
   const name: string = req.body.name;
 

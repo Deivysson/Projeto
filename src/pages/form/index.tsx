@@ -55,9 +55,9 @@ const handleMedicoSelect = (medico:any) => {
  return (
     <div className={styles.container}>
       <h1>Formulário de Exame</h1>
+      <input type="text" value={paciente.cod_paciente} readOnly className={styles.input} />
       <input type="text" value={paciente.nom_paciente} readOnly className={styles.input} />
       <input type="text" value={paciente.num_cpf} readOnly className={styles.input} />
-      <input type="text" value={paciente.cod_paciente} readOnly className={styles.input} /> {/* Campo de input com o nome do paciente */}
       
       <label>
 

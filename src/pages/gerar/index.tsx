@@ -24,12 +24,34 @@ export function Gerar() {
         setSenha(generateRandomString(6)); 
     };
 
+    const handleSave = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/usuarios', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ login, senha }),
+        });
+        if (!response.ok) {
+            throw new Error('Erro ao salvar login e senha.');
+        }
+
+        alert('Login e senha salvos com sucesso!');
+    } catch (error) {
+        console.error('Erro ao salvar:', error);
+        alert('Erro ao salvar login e senha.');
+    }
+};
+
+    
     return (
         <div className={styles.container}>
             <h1>SENHA DE ACESSO</h1>
             <div>
                 <p>Login: {login}</p>
                 <p>Senha: {senha}</p>
+                <button onClick={handleSave}>Salvar</button>
             </div>    
         </div>
     );
