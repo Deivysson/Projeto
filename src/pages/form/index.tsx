@@ -34,9 +34,13 @@ const [showExameList, setShowExameList] = useState(false);
     console.log({ selectedExame, dataExame, selectedMedico, arquivo });
  };
 
+
+
 const handleRedirectToGerar = () => {
-  navigate('/gerar');
-}
+  const cod_paciente = paciente.cod_paciente;
+  console.log('antes de chamar gerar cod_paciente: ', cod_paciente);
+  navigate('/gerar', { state: {cod_paciente} });
+ }
 
 const handleExameSelect = (exame:any) => {
   console.log('Exame selecionado:', exame);

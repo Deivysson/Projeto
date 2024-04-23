@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import styles from './gerar.module.css'
+import { useLocation } from 'react-router-dom';
 
 
 export function Gerar() {
     const [login, setLogin] = useState('');
     const [senha, setSenha] = useState('');
+
+    const location = useLocation();
+    const { cod_paciente } = location.state;
+   
 
     const generateRandomString = (length: number) => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -25,13 +30,16 @@ export function Gerar() {
     };
 
     const handleSave = async () => {
+        console.log(login, senha, cod_paciente);
+        
     try {
         const response = await fetch('http://localhost:3000/usuarios', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ login, senha }),
+          
+            body: JSON.stringify({ login, senha, cod_paciente }),
         });
         if (!response.ok) {
             throw new Error('Erro ao salvar login e senha.');
@@ -42,6 +50,7 @@ export function Gerar() {
         console.error('Erro ao salvar:', error);
         alert('Erro ao salvar login e senha.');
     }
+
 };
 
     
@@ -51,6 +60,7 @@ export function Gerar() {
             <div>
                 <p>Login: {login}</p>
                 <p>Senha: {senha}</p>
+                <p>cod_paciente: {cod_paciente} </p>
                 <button onClick={handleSave}>Salvar</button>
             </div>    
         </div>
