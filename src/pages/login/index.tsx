@@ -1,12 +1,16 @@
 import {  useState } from "react";
 import styles from './login.module.css';
 import img from '../../../assets/imagens/micro.png';
-
+import { useNavigate } from "react-router-dom";
 
 export function Login(){
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
+    function handleArea(){
+        navigate('/area');
+    }
 
     return(
         
@@ -29,7 +33,7 @@ export function Login(){
                     placeholder="*********"
                 />
                 
-                <button className={styles.button} type="submit">Entrar</button> 
+                <button className={styles.button} type="submit" onClick={handleArea}>Entrar</button> 
                 
 
                 </form>

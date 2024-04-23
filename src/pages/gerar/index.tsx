@@ -60,7 +60,7 @@ export function Gerar() {
             <div>
                 <p>Login: {login}</p>
                 <p>Senha: {senha}</p>
-                <p>cod_paciente: {cod_paciente} </p>
+              
                 <button onClick={handleSave}>Salvar</button>
             </div>    
         </div>
