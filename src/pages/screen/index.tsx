@@ -5,10 +5,15 @@ import styles from './screen.module.css';
 import img from '../../../assets/imagens/micro.png';
 
 export function Screen() {
- const [name, setName] = useState('');
+ const [name, setName] = useState<string>('');
  const [results, setResults] = useState([]);
  
  const navigate = useNavigate();
+
+ interface Paciente {
+  nom_paciente: String;
+  num_cpf: Number;
+ }
 
  async function handleSearch() {
     const response = await fetch(`http://localhost:3000/pacientes/search?name=${name}`);
@@ -17,7 +22,7 @@ export function Screen() {
     setResults(data);
  }
 
- const handleNameClick = (paciente:any) => {
+ const handleNameClick = (paciente: Paciente) => {
   navigate('/form', { state: {paciente} });
  }
 

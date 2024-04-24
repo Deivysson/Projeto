@@ -2,14 +2,27 @@ import {  useState } from "react";
 import styles from './login.module.css';
 import img from '../../../assets/imagens/micro.png';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export function Login(){
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleArea(){
-        navigate('/area');
+    function handleArea(e:any) {
+        e.preventDefault(); 
+        axios.post('http://localhost:3000/authenticate', { login: name, senha: password })
+            .then(response => {
+                if (response.data.user) {
+                    navigate('/area');
+                } else {
+                    alert('Login ou senha inválidos.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro na autenticação:', error);
+                alert('Erro na autenticação.');
+            });
     }
 
     return(
