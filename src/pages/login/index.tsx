@@ -15,7 +15,7 @@ export function Login(){
             .then(response => {
                 if (response.data.user) {
                     
-                    navigate(`/area?nom_paciente=${response.data.exames.nom_paciente}&num_cpf=${response.data.exames.num_cpf}`);
+                    navigate(`/area?nom_paciente=${response.data.exames.nom_paciente}&num_cpf=${response.data.exames.num_cpf}&des_endereco=${response.data.exames.des_endereco}&des_email=${response.data.exames.des_email}`);
                 } else {
                     alert('Login ou senha inválidos.');
                 }
