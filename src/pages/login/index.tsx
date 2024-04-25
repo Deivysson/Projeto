@@ -9,12 +9,13 @@ export function Login(){
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    function handleArea(e:any) {
+    function handleArea(e: React.FormEvent) {
         e.preventDefault(); 
         axios.post('http://localhost:3000/authenticate', { login: name, senha: password })
             .then(response => {
                 if (response.data.user) {
-                    navigate('/area');
+                    
+                    navigate(`/area?nom_paciente=${response.data.exames.nom_paciente}&num_cpf=${response.data.exames.num_cpf}`);
                 } else {
                     alert('Login ou senha inválidos.');
                 }
@@ -24,6 +25,7 @@ export function Login(){
                 alert('Erro na autenticação.');
             });
     }
+    
 
     return(
         
