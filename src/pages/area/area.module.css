@@ -1,0 +1,24 @@
+
+
+.logo {
+  border: 1px solid red;
+}
+
+table {
+    width: 50%;
+   color: red;
+ 
+}
+
+th, td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+    color: white;
+   
+}
+
+thData {
+  width: 25%;
+  color: red;
+}
