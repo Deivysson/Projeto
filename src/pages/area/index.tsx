@@ -13,7 +13,7 @@ export function Area() {
         <div>
         <div className="headerContainer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <header>
-                <h1>Bem-vindo, {nom_paciente}!</h1>
+                <h1>{nom_paciente}</h1>
                 <p>CPF: {num_cpf}</p>
                 <p>Email: {des_email}</p>
             </header>

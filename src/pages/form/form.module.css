@@ -7,6 +7,13 @@
     background-color: black;
 }
 
+/* Estilização para campos de input somente leitura */
+.input[readonly] {
+    background-color: #cccc; /* Cor de fundo cinza claro */
+    cursor: not-allowed; /* Muda o cursor para indicar que o campo não é editável */
+}
+
+
 .input {
     display: block;
     margin-bottom: 10px;
@@ -48,7 +55,7 @@ label {
     border: 1px solid #ccc;
     background-color: #333; /* Cor de fundo escura para melhorar a visibilidade */
     position: absolute;
-    width: 100%;
+    width: auto;
     z-index: 10;
 }
 

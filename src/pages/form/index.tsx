@@ -1,5 +1,5 @@
 
-import  { FormEvent, useState } from 'react';
+import  { FormEvent, useState, ChangeEvent } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './form.module.css'
 
@@ -19,20 +19,35 @@ const [showExameList, setShowExameList] = useState(false);
 
  // Estados para gerenciar os campos de input
  const [dataExame, setDataExame] = useState('');
- const [arquivo, setArquivo] = useState(null);
+ const [arquivo, setArquivo] = useState<File | null>(null);
 
  // Função para lidar com a mudança no campo de arquivo
- const handleFileChange = (e:any) => {
-
+ const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files && e.target.files.length > 0) {
     setArquivo(e.target.files[0]);
+  }
  };
 
- // Função para lidar com a submissão do formulário
  const handleSubmit = (e:FormEvent) => {
-    e.preventDefault();
-    // Aqui você pode implementar a lógica para enviar os dados para o backend
-    console.log({ selectedExame, dataExame, selectedMedico, arquivo });
- };
+  e.preventDefault();
+  if (!arquivo) {
+    console.error('Nenhum arquivo selecionado');
+    return;
+ }
+
+ const formData = new FormData();
+ formData.append('arquivo', arquivo);
+ // Adicione outros campos do formulário ao formData se necessário
+
+ fetch('http://localhost:3000/upload', {
+    method: 'POST',
+    body: formData,
+ })
+ .then(response => response.json())
+ .then(data => console.log(data))
+ .catch(error => console.error(error));
+};
+ 
 
 
 
@@ -118,7 +133,9 @@ const handleMedicoSelect = (medico:any) => {
       <label>
         Selecionar Arquivo:
         <input type="file" accept="application/pdf" onChange={handleFileChange} className={styles.inputFile} />
+
       </label>
+
       <button onClick={handleSubmit} className={styles.button}>Enviar</button>
       <button onClick={handleRedirectToGerar} className={styles.button}>Gerar senha</button>
       
