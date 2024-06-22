@@ -8,6 +8,7 @@ import { Gerar } from './pages/gerar';
 import { Login } from './pages/login';
 import { Area } from './pages/area'
 
+import { FileView } from './pages/FileView'
 
 
 import { Private } from "./routes/Private";
@@ -22,7 +23,7 @@ function RoutesApp(){
         <Route  path="/gerar" element={ <Private> <Gerar /> </Private> } />
         <Route path="/login" element={ <Private> <Login /> </Private> } />
         <Route  path="/area" element={ <Private> <Area /> </Private> } />
-       
+        <Route path="/upload/:filename" element={<Private><FileView /></Private>} />
        
     </Routes>  
     )
