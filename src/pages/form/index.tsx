@@ -37,7 +37,8 @@ const [showExameList, setShowExameList] = useState(false);
 
  const formData = new FormData();
  formData.append('arquivo', arquivo);
- // Adicione outros campos do formulário ao formData se necessário
+ formData.append('cod_paciente', paciente.cod_paciente.toString());
+ 
 
  fetch('http://localhost:3000/upload', {
     method: 'POST',
