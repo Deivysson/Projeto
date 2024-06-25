@@ -47,16 +47,16 @@ export function Area() {
                 <thead>
                     <tr>
                         <th>Exames</th>
-                        <th>Data de Inserção</th>
                     </tr>
                 </thead>
                 <tbody>
                     {exames.map((exame, index) => (
                         <tr key={index}>
-                            <td> <a href={`/upload/${exame.nome_arquivo}`} target="_blank" rel="noopener noreferrer">
-                        {exame.nome_arquivo}
-                         </a></td>
-                            
+                            <td> 
+                                <a href={`http://localhost:3000/upload/${exame.nome_arquivo}`} target="_blank" rel="noopener noreferrer">
+                                    {exame.nome_arquivo}
+                                </a>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
