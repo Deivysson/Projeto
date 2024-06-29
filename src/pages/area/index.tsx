@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import './area.module.css';
 import { useLocation } from "react-router-dom";
 import img from '../../../assets/imagens/micro.png';
-import { useState, useEffect } from 'react';
 
 interface Exame {
     nome_arquivo: string;
@@ -20,6 +20,7 @@ export function Area() {
     const cod_paciente = queryParams.get('cod_paciente');
     
     const [exames, setExames] = useState<Exame[]>([]);
+    const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
     useEffect(() => {
         if (!cod_paciente) {
@@ -32,6 +33,10 @@ export function Area() {
             .then(data => setExames(data.exames))
             .catch(error => console.error('Erro ao buscar exames:', error));
     }, [cod_paciente]);
+
+    const handleDateClick = (date: string) => {
+        setSelectedDate(selectedDate === date ? null : date);
+    };
 
     return (
         <div>
@@ -47,24 +52,32 @@ export function Area() {
             <table>
                 <thead>
                     <tr>
-                        <th>Exame</th>
                         <th>Data do Exame</th>
-                        <th>Médico</th>
-                        <th>Arquivo</th>
                     </tr>
                 </thead>
                 <tbody>
                     {exames.map((exame, index) => (
-                        <tr key={index}>
-                            <td>{exame.exame}</td>
-                            <td>{exame.data_exame}</td>
-                            <td>{exame.medico}</td>
-                            <td>
-                                <a href={`http://localhost:3000/upload/${exame.nome_arquivo}`} target="_blank" rel="noopener noreferrer">
-                                    {exame.nome_arquivo}
-                                </a>
-                            </td>
-                        </tr>
+                        <React.Fragment key={index}>
+                            <tr onClick={() => handleDateClick(exame.data_exame)}>
+                                <td>{exame.data_exame}</td>
+                            </tr>
+                            {selectedDate === exame.data_exame && (
+                                <tr>
+                                    <td colSpan={1}>
+                                        <div className="exame-details">
+                                            <p><strong>Exame:</strong> {exame.exame}</p>
+                                            <p><strong>Médico:</strong> {exame.medico}</p>
+                                            <p>
+                                                <strong>Arquivo:</strong> 
+                                                <a href={`http://localhost:3000/upload/${exame.nome_arquivo}`} target="_blank" rel="noopener noreferrer">
+                                                    {exame.nome_arquivo}
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            )}
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
