@@ -1,15 +1,15 @@
-import { FormEvent, useState, ChangeEvent, useRef } from 'react';
+import { FormEvent, useState, ChangeEvent, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './form.module.css';
 import Swal from 'sweetalert2'; // Importação do SweetAlert2
+import styles from './form.module.css';
 
 export function Form() {
   const location = useLocation();
   const { paciente } = location.state;
   const navigate = useNavigate();
 
-  const exames = ['Exame A', 'Exame B', 'Exame C'];
-  const medicos = ['Dr.João', 'Dra. Maria', 'Dr.Deivysson'];
+  const [exames, setExames] = useState<string[]>([]);
+  const [medicos, setMedicos] = useState<string[]>([]);
 
   const [showExameList, setShowExameList] = useState(false);
   const [showMedicoList, setShowMedicoList] = useState(false);
@@ -20,6 +20,18 @@ export function Form() {
 
   const exameInputRef = useRef<HTMLInputElement>(null);
   const medicoInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/medicos')
+      .then(response => response.json())
+      .then(data => setMedicos(data.map((medico: { nom_medico: string }) => medico.nom_medico)))
+      .catch(error => console.error('Erro ao buscar médicos:', error));
+
+    fetch('http://localhost:3000/tipos_exames')
+      .then(response => response.json())
+      .then(data => setExames(data.map((exame: { nome: string }) => exame.nome)))
+      .catch(error => console.error('Erro ao buscar tipos de exames:', error));
+  }, []);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -42,35 +54,28 @@ export function Form() {
       method: 'POST',
       body: formData,
     })
-   .then(response => response.json())
-   .then(data => {
-      console.log(data);
-      Swal.fire({ // Uso do SweetAlert2
-        title: 'Deseja enviar outro arquivo?',
-        icon: 'question',
-        confirmButtonText: 'SIM',
-        cancelButtonText: 'NAO',
-        showCancelButton: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          setSelectedExame('');
-          setSelectedMedico('');
-          setDataExame('');
-          setArquivo(null);
-        } else {
-          navigate('/gerar', { state: { cod_paciente: paciente.cod_paciente } });
-        }
-      });
-    })
-   .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        Swal.fire({
+          title: 'Deseja enviar outro arquivo?',
+          icon: 'question',
+          confirmButtonText: 'SIM',
+          cancelButtonText: 'NAO',
+          showCancelButton: true,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setSelectedExame('');
+            setSelectedMedico('');
+            setDataExame('');
+            setArquivo(null);
+          } else {
+            navigate('/gerar', { state: { cod_paciente: paciente.cod_paciente } });
+          }
+        });
+      })
+      .catch(error => console.error(error));
   };
-
-   {/* const handleRedirectToGerar = () => {
-    const cod_paciente = paciente.cod_paciente;
-    console.log('antes de chamar gerar cod_paciente: ', cod_paciente);
-    navigate('/gerar', { state: { cod_paciente } });
-  };
-  */}
 
   const handleExameSelect = (exame: string) => {
     console.log('Exame selecionado:', exame);
@@ -86,7 +91,7 @@ export function Form() {
     medicoInputRef.current?.blur();
   };
 
- return (
+  return (
     <div className={styles.container}>
       <h1>Formulário de Exame</h1>
       <input type="text" value={paciente.cod_paciente} readOnly className={styles.input} />
@@ -148,9 +153,8 @@ export function Form() {
       </label>
 
       <button onClick={handleSubmit} className={styles.button}>Enviar</button>
-     {/* <button onClick={handleRedirectToGerar} className={styles.button}>Gerar senha</button> */}
     </div>
- );
+  );
 }
 
 export default Form;
