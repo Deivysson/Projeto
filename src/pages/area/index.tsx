@@ -6,7 +6,9 @@ import { useState, useEffect } from 'react';
 interface Exame {
     nome_arquivo: string;
     caminho_arquivo: string;
-    data_insercao: string;
+    exame: string;
+    data_exame: string;
+    medico: string;
 }
 
 export function Area() {
@@ -15,22 +17,21 @@ export function Area() {
     const nom_paciente = queryParams.get('nom_paciente');
     const num_cpf = queryParams.get('num_cpf');
     const des_email = queryParams.get('des_email');
+    const cod_paciente = queryParams.get('cod_paciente');
+    
     const [exames, setExames] = useState<Exame[]>([]);
 
     useEffect(() => {
-        const cod_paciente = queryParams.get('cod_paciente');
-    
         if (!cod_paciente) {
             console.error('cod_paciente não encontrado nos parâmetros da URL.');
             return;
         }
-    
+
         fetch(`http://localhost:3000/exames/arquivos?cod_paciente=${cod_paciente}`)
             .then(response => response.json())
             .then(data => setExames(data.exames))
             .catch(error => console.error('Erro ao buscar exames:', error));
-    }, [queryParams]);
-    
+    }, [cod_paciente]);
 
     return (
         <div>
@@ -40,19 +41,25 @@ export function Area() {
                     <p>CPF: {num_cpf}</p>
                     <p>Email: {des_email}</p>
                 </header>
-                <img src={img} alt="Logo" className="logo" style={{ height: 'auto' }}/>
+                <img src={img} alt="Logo" className="logo" style={{ height: 'auto' }} />
             </div>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Exames</th>
+                        <th>Exame</th>
+                        <th>Data do Exame</th>
+                        <th>Médico</th>
+                        <th>Arquivo</th>
                     </tr>
                 </thead>
                 <tbody>
                     {exames.map((exame, index) => (
                         <tr key={index}>
-                            <td> 
+                            <td>{exame.exame}</td>
+                            <td>{exame.data_exame}</td>
+                            <td>{exame.medico}</td>
+                            <td>
                                 <a href={`http://localhost:3000/upload/${exame.nome_arquivo}`} target="_blank" rel="noopener noreferrer">
                                     {exame.nome_arquivo}
                                 </a>
