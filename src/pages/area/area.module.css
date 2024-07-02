@@ -5,8 +5,10 @@
 }
 
 table {
-  width: 100%;
+  width: 40%;
   border-collapse: collapse;
+  margin-left: 30%;
+  margin-top: 50px;
 }
 
 th, td {
@@ -17,19 +19,78 @@ th, td {
 th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
   background-color: #f2f2f2;
   color: black;
+  text-align: center;
+}
+
+tr {
+  color: white;
 }
 
 tr:hover {
-  background-color: #f5f5f5;
   cursor: pointer;
+  color: #32cd32;
 }
 
 .exame-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #f9f9f9;
   padding: 10px;
   margin-top: 10px;
   border: 1px solid #ddd;
+}
+
+.exame-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.medico-info {
+  margin-top: 10px;
+}
+
+.icon-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-button {
+  text-decoration: none;
+  color: inherit;
+}
+
+.icon-button svg {
+  width: 25px;
+  height: 25px;
+}
+
+a {
+  color: #708090;
+  margin-right: 10px;
+}
+
+a:hover {
+  color: white;
+}
+
+.exames-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.exames-title {
+  text-align: center;
+}
+
+.selected-date {
+  background-color: #32cd32;
+  color: white;
+}
+
+.selected-date td {
+  font-weight: bold;
 }
